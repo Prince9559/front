@@ -12,9 +12,6 @@ function Home() {
 
   const [showPassword, setShowPassword] = useState(false);
 
-  // IMPORTANT: Use your deployed backend base URL here
-  const BASE_URL = 'https://back-git-main-prince-kumars-projects-a808d539.vercel.app';
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setStore(prev => ({ ...prev, [name]: value }));
@@ -23,95 +20,65 @@ function Home() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      const response = await fetch(`${BASE_URL}/api/num`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(store)
-      });
+    const response = await fetch('http://localhost:5000/api/num', 
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(store)
+      
+    });
 
-      const result = await response.json();
-      console.log(result);
-      alert(result.message);
-    } catch (error) {
-      console.error(error);
-      alert('Something went wrong. Please try again.');
-    }
+    let result = await response.json();
+    console.log(result);
+    // alert(result.message);
+      alert("Sign Up Successful");
+      window.location.reload();
   }
 
   return (
     <div className="radio-group-container">
       <div className="radio-group">
-        <form onSubmit={handleSubmit} autoComplete="off">
+        <form onSubmit={handleSubmit}autoComplete="off">
           <h1 className="number"><i>Sign Up Page</i></h1>
 
           <label>
             Name:
-            <input
-              className="input"
-              type="text"
-              name="name"
-              value={store.name}
-              onChange={handleChange}
-              required
-              autoComplete="off"
-            />
+            <input className="input"type="text"name="name"value={store.name}onChange={handleChange}required  autoComplete="off"/>
           </label>
 
-          <br />
+          <br/>
 
           <label>
             Mobile:
-            <input
-              className="input"
-              type="text"
-              name="mobile"
-              value={store.mobile}
-              onChange={handleChange}
-              required
-              autoComplete="off"
-            />
+            <input className="input"type="text"name="mobile"value={store.mobile}onChange={handleChange}required  autoComplete="off"/>
           </label>
 
-          <br />
+          <br/>
 
           <label>
             Email:
-            <input
-              className="input"
-              type="email"
-              name="email"
-              value={store.email}
-              onChange={handleChange}
-              required
-              autoComplete="off"
-            />
+            <input className="input"type="text"name="email"value={store.email}onChange={handleChange}required  autoComplete="off"/>
           </label>
 
-          <br />
+          <br/>
 
           <label>
             Password:
             <div className="password-input-container">
-              <input
-                className="password-input"
-                type={showPassword ? "text" : "password"}
-                name="password"
-                value={store.password}
-                onChange={handleChange}
-                required
-                autoComplete="off"
-              />
-              <span
-                className="password-toggle-icon"
+
+              <input className="password-input"type={showPassword ? "text" : "password"}name="password"value={store.password}onChange={handleChange}required  autoComplete="off"/>
+             
+              <span className="password-toggle-icon"
                 onClick={() => setShowPassword(prev => !prev)}
                 aria-label={showPassword ? "Hide password" : "Show password"}
                 role="button"
                 tabIndex={0}
-                onKeyDown={e => { if (e.key === 'Enter') setShowPassword(prev => !prev) }}
-              >
+                on={e => { if (e.key === 'Enter') setShowPassword(prev => !prev) }}>
+                    
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
+
               </span>
+
             </div>
           </label>
 
@@ -125,3 +92,7 @@ function Home() {
 }
 
 export default Home;
+
+
+
+
